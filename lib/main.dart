@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import './question.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _qustionIndex = 0;
+
+  void _onPressHandler() {
+    if (_qustionIndex < 2) {
+      setState(() {
+        _qustionIndex++;
+      });
+      print(_qustionIndex);
+    } else {
+      print(_qustionIndex);
+      setState(() {
+        _qustionIndex = 0;
+      });
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +45,17 @@ class MyApp extends StatelessWidget {
         // Scaffold's body only takes one widget
         body: Column(
           children: [
-            Text(_questions[0]),
+            Question(_questions[_qustionIndex], null),
             ElevatedButton(
-              onPressed: () => print("This is answer 1"),
+              onPressed: _onPressHandler,
               child: const Text("Answer 1"),
             ),
             ElevatedButton(
-              onPressed: () => print("This is answer 2"),
+              onPressed: _onPressHandler,
               child: const Text("Answer 2"),
             ),
             ElevatedButton(
-              onPressed: () => print("This is answer 3"),
+              onPressed: _onPressHandler,
               child: const Text("Answer 3"),
             ),
           ],
