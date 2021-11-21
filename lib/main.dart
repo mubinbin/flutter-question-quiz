@@ -14,14 +14,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _qustionIndex = 0;
 
-  void _onPressHandler() {
+  void _onPressHandler(String answer) {
     if (_qustionIndex < 2) {
       setState(() {
         _qustionIndex++;
       });
-      print(_qustionIndex);
+      print(answer);
     } else {
-      print(_qustionIndex);
+      print(answer);
       setState(() {
         _qustionIndex = 0;
       });
@@ -31,11 +31,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    const _questions = [
-      "What's your favorite color?",
-      "What's your favorite car?",
-      "How are you doing?"
-    ];
+    const _question1 = {
+      "question": "What's your favorite color?",
+      "answers": ["Blue", "Black", "Green", "Yellow", "Red"]
+    };
+    const _question2 = {
+      "question": "What is the scariest animal?",
+      "answers": ["Snake", "Tiger"]
+    };
+    const _question3 = {
+      "question": "What's your favorite car?",
+      "answers": ["BMW", "Mercedes", "Audi"]
+    };
+
+    const _questions = [_question1, _question2, _question3];
 
     return MaterialApp(
       // Scaffold gives basic app design
@@ -46,19 +55,14 @@ class _MyAppState extends State<MyApp> {
         // Scaffold's body only takes one widget
         body: Column(
           children: [
-            Question(_questions[_qustionIndex], null),
-            Answer(
-              answerText: "Answer 1",
-              onPressedHandler: _onPressHandler,
-            ),
-            Answer(
-              answerText: "Answer 2",
-              onPressedHandler: _onPressHandler,
-            ),
-            Answer(
-              answerText: "Answer 3",
-              onPressedHandler: _onPressHandler,
-            ),
+            Question(_questions[_qustionIndex]["question"] as String, null),
+            ...(_questions[_qustionIndex]["answers"] as List<String>)
+                .map((answerItem) {
+              return Answer(
+                answerText: answerItem,
+                onPressedHandler: () => _onPressHandler(answerItem),
+              );
+            }),
           ],
         ),
       ),
