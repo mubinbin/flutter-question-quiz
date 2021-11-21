@@ -12,9 +12,9 @@ class Question extends StatelessWidget {
         _question,
         style: TextStyle(
           fontSize: 28,
-          backgroundColor: Colors.lime[50],
+          backgroundColor: Colors.lime[100],
           color: Colors.blue,
-          height: 10,
+          height: 2,
         ),
         textAlign: TextAlign.center,
       ),
