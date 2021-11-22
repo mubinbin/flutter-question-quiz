@@ -46,6 +46,14 @@ class _MyAppState extends State<MyApp> {
 
     const _questions = [_question1, _question2, _question3];
 
+    final List<Answer> _answerList =
+        (_questions[_qustionIndex]["answers"] as List<String>)
+            .map((String answerItem) => Answer(
+                  answerText: answerItem,
+                  onPressedHandler: () => _onPressHandler(answerItem),
+                ))
+            .toList();
+
     return MaterialApp(
       // Scaffold gives basic app design
       home: Scaffold(
@@ -56,13 +64,7 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(_questions[_qustionIndex]["question"] as String, null),
-            ...(_questions[_qustionIndex]["answers"] as List<String>)
-                .map((answerItem) {
-              return Answer(
-                answerText: answerItem,
-                onPressedHandler: () => _onPressHandler(answerItem),
-              );
-            }),
+            ..._answerList,
           ],
         ),
       ),
