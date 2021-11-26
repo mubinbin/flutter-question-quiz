@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
         ),
         // Scaffold's body only takes one widget
         body: Column(
-          children: [
+          children: <Widget>[
             Question(_questions[_qustionIndex]["question"] as String, null),
             ..._answerList,
           ],
