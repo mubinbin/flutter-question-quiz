@@ -23,19 +23,35 @@ void main() {
     await tester.pumpWidget(const MyApp());
 
     expect(find.text('What\'s your favorite color?'), findsOneWidget);
-    expect(find.text('What\'s your favorite car?'), findsNothing);
-    expect(find.text('Answer 1'), findsOneWidget);
-    expect(find.text('Answer 4'), findsNothing);
-    expect(find.text('Answer 2'), findsOneWidget);
-    expect(find.text('Answer 3'), findsOneWidget);
+    expect(find.text('Blue'), findsOneWidget);
+    expect(find.text('Snake'), findsNothing);
+    expect(find.text('Purple'), findsNothing);
+    expect(find.text('Yellow'), findsOneWidget);
+    expect(find.text('Black'), findsOneWidget);
+    expect(find.text('Green'), findsOneWidget);
+    expect(find.text('Red'), findsOneWidget);
   });
 
   testWidgets('tapping buttons', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Answer 1'));
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Answer 2'));
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Answer 3'));
-    expect(find.text('Answer 4'), findsNothing);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Blue'));
+    await tester.pump(); // trigger a frame
+
+    expect(find.text('What is the scariest animal?'), findsOneWidget);
+    expect(find.text('Blue'), findsNothing);
+
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Tiger'));
+    await tester.pump();
+
+    expect(find.text('What\'s your favorite car?'), findsOneWidget);
+    expect(find.text('Snake'), findsNothing);
+
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Mercedes'));
+    await tester.pump();
+
+    expect(find.text('What\'s your favorite color?'), findsOneWidget);
+    expect(find.text('Mercedes'), findsNothing);
+    expect(find.text('Yellow'), findsOneWidget);
   });
 }
